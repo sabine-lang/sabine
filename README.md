@@ -12,7 +12,9 @@ we ballin' :ball:!".
 
 ## Development
 
-The project primarily utilizes Nix package manager for development. You need to have Nix package manager installed on your machine. Lowkey, you migth try running project with your distro's coreutils dev toolchain but I'm not going to guarantee you anything.
+The project primarily utilizes Nix package manager for development. You need to have Nix package manager
+installed on your machine. Lowkey, you migth try running project with your distro's coreutils dev toolchain
+but I'm not going to guarantee you anything.
 
 ```shell
 # This will use your current NixOS'es nixpkgs
@@ -24,7 +26,8 @@ nix develop -c $SHELL
 
 ## Compiling
 
-The project supports 2 most popular build systems like cmake and gnumake. LLVM is set to default, you have to pass params for gnu. So, assuming whatever we have, you have 2 options:
+The project supports 2 most popular build systems like cmake and gnumake. LLVM is set to default, you have
+to pass params for gnu. So, assuming whatever we have, you have 2 options:
 
 ### nix run / nix build
 
@@ -52,7 +55,20 @@ cmake --build .
 ./sabine
 ```
 
+## Running (easily)
+
+Thanks to all those Nix efforts, you can run the project without having need to clone this repository
+simply by running:
+
+```shell
+# Defaulted LLVM host
+nix run github:orzklv/sabine
+
+# Optional GNU host
+nix run github:orzklv/sabine#gnu
+```
+
 ## License
 
-This project is licensed under WTFPL license which grants you what the fuckever you want. Just don't roast me
-posting shit on X. I'm not that nerd of geek as you may think.
+This project is licensed under WTFPL license which grants you what the fuckever you want. Just don't
+roast me posting shit on X. I'm not that nerd of geek as you may think.
