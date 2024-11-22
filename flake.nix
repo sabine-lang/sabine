@@ -10,10 +10,10 @@
 
   # Repos
   inputs = {
-    # Naaaaah... Meh...
+    # If you want something stable
     # nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-24.05";
 
-    # We will be using unstable, idk, I just wanted so
+    # If you want fresh deps out of oven
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
 
     # A few useful nix functions for painless flake management
@@ -25,34 +25,38 @@
     , nixpkgs
     , utils
     } @ inputs:
-    utils.lib.eachDefaultSystem (system:
-    let
-      pkgs = nixpkgs.legacyPackages.${system};
+    utils.lib.eachDefaultSystem
+      (system:
+      let
+        pkgs = nixpkgs.legacyPackages.${system};
 
-      # There will be llvm hosted binary
-      # LLVM will be default (I <3 LLVM)
-      llvm = pkgs.callPackage ./. { };
+        # There will be llvm hosted binary
+        # LLVM will be default (I <3 LLVM)
+        llvm = pkgs.callPackage ./. { };
 
-      # Also, there will be GNU hosted binary
-      # To at least have it as option
-      gnu = pkgs.callPackage ./default-gnu.nix { };
-    in
-    {
-      # Nix script formatter
-      formatter = pkgs.nixpkgs-fmt;
+        # Also, there will be GNU hosted binary
+        # To at least have it as option
+        gnu = pkgs.callPackage ./default-gnu.nix { };
+      in
+      {
+        # Nix script formatter
+        formatter = pkgs.nixpkgs-fmt;
 
-      # Development environment
-      devShells.default = import ./shell.nix { inherit pkgs; };
+        # Development environment
+        devShells = {
+          gnu = import ./shell-gnu.nix { inherit pkgs; };
+          default = import ./shell.nix { inherit pkgs; };
+        };
 
-      # Output packages
-      packages = {
-        inherit gnu;
-        default = llvm;
-      };
-    })
+        # Output packages
+        packages = {
+          inherit gnu;
+          default = llvm;
+        };
+      })
 
     // # and
 
-    # Possible static attsets (just in case for the future)
-    {};
+    # Possible static attrsets (just in case for the future)
+    { };
 }

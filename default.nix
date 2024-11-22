@@ -24,7 +24,7 @@ pkgs.llvmPackages.stdenv.mkDerivation rec {
     cmake
     llvmPackages.llvm
     llvmPackages.clang-tools
- ];
+  ];
 
   cmakeFlags = [
     "-DENABLE_TESTING=OFF"
