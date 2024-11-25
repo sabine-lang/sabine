@@ -5,6 +5,8 @@
 #ifndef SABINE_TOKEN_H
 #define SABINE_TOKEN_H
 
+#include <stdbool.h>
+
 struct pos
 {
   /* Which */

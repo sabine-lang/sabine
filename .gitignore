@@ -55,8 +55,8 @@ dkms.conf
 build/*
 
 # Test files directory
-test/*
-!test/*.c
+tests/*
+!tests/*.c
 
 # Generated files
 result
