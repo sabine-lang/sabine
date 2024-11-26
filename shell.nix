@@ -42,6 +42,7 @@ pkgs.stdenv.mkDerivation {
     source ${./.github/scripts/log.sh}
 
     bootstrap () {
+      local _cwp="$(pwd)"
       local _build="$(pwd)/build"
 
       log "warn" "let's see if build folder is fine..."
@@ -60,10 +61,10 @@ pkgs.stdenv.mkDerivation {
         cd $_build
 
         # Bootstrap cmake
-        cmake ..
+        cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=ON ..
 
         # Return back
-        cd $cwp
+        cd $_cwp
       fi
 
       return
