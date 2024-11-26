@@ -1,3 +1,6 @@
+run:
+  cmake --build ./build && ./build/sabine
+
 build:
   cmake --build ./build
 
