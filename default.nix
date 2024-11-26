@@ -1,18 +1,13 @@
-{ pkgs ? import <nixpkgs> { } }:
+{
+  inputs,
+  pkgs ? import <nixpkgs> { },
+}:
 let
   lib = pkgs.lib;
   getLibrary = pkg: "${pkg}/lib";
-  getFramework = pkg: "${pkg}/Library/Frameworks";
-  darwinOptions =
-    if pkgs.stdenv.isDarwin then
-      ''
-        -F${(getFramework pkgs.darwin.apple_sdk.frameworks.Security)}
-        -F${(getFramework pkgs.darwin.apple_sdk.frameworks.CoreFoundation)}
-        -F${(getFramework pkgs.darwin.apple_sdk.frameworks.CoreServices)}
-        -F${(getFramework pkgs.darwin.apple_sdk.frameworks.SystemConfiguration)}
-      ''
-    else
-      "";
+
+  # Libsabine library for extra implementations
+  libsabine = inputs.libsabine.packages.${pkgs.stdenv.hostPlatform.system}.default;
 in
 pkgs.llvmPackages.stdenv.mkDerivation rec {
   pname = "sabine";
@@ -31,14 +26,17 @@ pkgs.llvmPackages.stdenv.mkDerivation rec {
     "-DENABLE_INSTALL=ON"
   ];
 
-  NIX_LDFLAGS = "-L${(getLibrary pkgs.llvmPackages.llvm)}  ${darwinOptions}";
+  # Necessary Environment Variables
+  NIX_LIBSABINE_HEADER="${libsabine}/include";
+  NIX_LDFLAGS = "-L${(getLibrary pkgs.llvmPackages.llvm)} -L${getLibrary libsabine}";
   LD_LIBRARY_PATH = pkgs.lib.makeLibraryPath [
     pkgs.llvmPackages.llvm
+    libsabine
   ];
 
   # Some normal fucking detail about the project
   meta = with lib; {
-    homepage = "https://github.com/orzklv/sabine";
+    homepage = "https://github.com/sabine-lang/sabine";
     description = ''
       A toy compiler named after Sabine
     '';
@@ -53,9 +51,11 @@ pkgs.llvmPackages.stdenv.mkDerivation rec {
         handle = "orzklv";
         github = "orzklv";
         githubId = 54666588;
-        keys = [{
-          fingerprint = "00D2 7BC6 8707 0683 FBB9  137C 3C35 D3AF 0DA1 D6A8";
-        }];
+        keys = [
+          {
+            fingerprint = "00D2 7BC6 8707 0683 FBB9  137C 3C35 D3AF 0DA1 D6A8";
+          }
+        ];
       }
       # Sabine, herself here, possibly...
       # {}

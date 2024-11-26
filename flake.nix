@@ -18,45 +18,39 @@
 
     # A few useful nix functions for painless flake management
     utils.url = "github:numtide/flake-utils";
+
+    # Library of various implementations
+    libsabine.url = "github:sabine-lang/libsabine";
   };
 
   outputs =
-    { self
-    , nixpkgs
-    , utils
-    } @ inputs:
-    utils.lib.eachDefaultSystem
-      (system:
+    {
+      self,
+      nixpkgs,
+      utils,
+      libsabine,
+    }@inputs:
+    utils.lib.eachDefaultSystem (
+      system:
       let
         pkgs = nixpkgs.legacyPackages.${system};
-
-        # There will be llvm hosted binary
-        # LLVM will be default (I <3 LLVM)
-        llvm = pkgs.callPackage ./. { };
-
-        # Also, there will be GNU hosted binary
-        # To at least have it as option
-        gnu = pkgs.callPackage ./default-gnu.nix { };
       in
       {
         # Nix script formatter
-        formatter = pkgs.nixpkgs-fmt;
+        formatter = pkgs.nixfmt-rfc-style;
 
         # Development environment
-        devShells = {
-          gnu = import ./shell-gnu.nix { inherit pkgs; };
-          default = import ./shell.nix { inherit pkgs; };
-        };
+        devShells.default = import ./shell.nix { inherit inputs pkgs; };
 
         # Output packages
-        packages = {
-          inherit gnu;
-          default = llvm;
-        };
-      })
+        packages.default = pkgs.callPackage ./. { inherit inputs; };
+      }
+    )
 
-    // # and
+    # and
+    //
 
-    # Possible static attrsets (just in case for the future)
-    { };
+      # Possible static attrsets (just in case for the future)
+      {
+      };
 }
