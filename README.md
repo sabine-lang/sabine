@@ -7,8 +7,8 @@
 </p>
 
 <p align="center">
-    <img align="center" src="https://img.shields.io/github/languages/top/sabine-lang/sabine?style=flat&logo=nixos&logoColor=000000&labelColor=F05045&color=F05045" alt="Top Used Language">
-    <a href="https://github.com/sabine-lang/sabine/actions/workflows/test.yml"><img align="center" src="https://img.shields.io/github/actions/workflow/status/sabine-lang/sabine/test.yml?style=flat&logo=github&logoColor=000000&labelColor=F05045&color=F05045" alt="Test CI"></a>
+    <img align="center" src="https://img.shields.io/github/languages/top/sabine-lang/sabine?style=flat&logo=nixos&logoColor=ffffff&labelColor=F05045&color=F05045" alt="Top Used Language">
+    <a href="https://github.com/sabine-lang/sabine/actions/workflows/test.yml"><img align="center" src="https://img.shields.io/github/actions/workflow/status/sabine-lang/sabine/test.yml?style=flat&logo=github&logoColor=ffffff&labelColor=F05045&color=F05045" alt="Test CI"></a>
 </p>
 
 ## Motivation
