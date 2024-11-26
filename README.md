@@ -38,28 +38,20 @@ nix develop -c $SHELL
 
 ## Compiling
 
-The project supports 2 most popular build systems like cmake and gnumake. LLVM is set to default, you have
-to pass params for gnu. So, assuming whatever we have, you have 2 options:
+> There used to be gnu makefile support, now it's gone. Maybe will be back in the future, but I'm not
+planning to support further. My bad...
+
+The manual shown below uses LLVM for compilation and development environment has been set up accordingly.
 
 ### nix run / nix build
 
 ```shell
-# For defaulted LLVM
 nix build .
-
-# For GNU
-nix build .#gnu
 ```
 
 ### Manual
 
 ```shell
-# GNU / Make
-mkdir -p ./build
-make
-./sabine
-
-# LLVM / CMake
 mkdir -p ./build
 cd ./build
 cmake ..
@@ -73,11 +65,7 @@ Thanks to all those Nix efforts, you can run the project without having need to 
 simply by running:
 
 ```shell
-# Defaulted LLVM host
 nix run github:orzklv/sabine
-
-# Optional GNU host
-nix run github:orzklv/sabine#gnu
 ```
 
 ## License
