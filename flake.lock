@@ -6,11 +6,11 @@
         "utils": "utils"
       },
       "locked": {
-        "lastModified": 1732575891,
-        "narHash": "sha256-MalmA6aKQLwtcLb0gHI1Ke4ixj/+9kx23kTqeSg3BdA=",
+        "lastModified": 1732610605,
+        "narHash": "sha256-6S3pKySpb5TY2IsBfMYjgj/GsmkTJbGgE5A8swO50aM=",
         "owner": "sabine-lang",
         "repo": "libsabine",
-        "rev": "e96cec9d99854e5db146ca02eb0d059f226a902c",
+        "rev": "4c5480e6f90c9d0cfdcc14ca2f4ae60efb3bc447",
         "type": "github"
       },
       "original": {
