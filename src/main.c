@@ -2,15 +2,15 @@
 // Created by Orzklv on 21/11/24.
 //
 
-#include "../include/compiler.h"
-#include "../include/errors.h"
+#include "compiler.h"
+#include "errors.h"
 #include <sabine/buffer.h>
 #include <sabine/vector.h>
 #include <stdio.h>
 
 int main()
 {
-  int res = compile_file("./tests/basic.c", "./tests/basic", 0);
+  int res = compile_file("./tests/number.c", "./tests/number", 0);
 
   if (res == COMPILER_FILE_COMPILED_OK) {
     printf("trace: compiled successfully\n");

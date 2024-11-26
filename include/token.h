@@ -7,14 +7,13 @@
 
 #include <stdbool.h>
 
-struct pos
-{
+struct pos {
   /* Which */
   int line;
   /* What */
   int col;
   /* Where */
-  const char* filename;
+  const char *filename;
 };
 
 /* Token Types */
@@ -30,26 +29,25 @@ enum {
 };
 
 /* A Token */
-struct token
-{
+struct token {
   int type;
   int flags;
+  struct pos pos;
 
-  union
-  {
+  union {
     char cval;
-    const char* sval;
+    const char *sval;
     unsigned int inum;
     unsigned long lnum;
     unsigned long long llnum;
-    void* any;
+    void *any;
   };
 
   /* Whether between token and next token */
   bool whitespace;
 
   /* For debugging purposes */
-  const char* between_brackets;
+  const char *between_brackets;
 };
 
 #endif // SABINE_TOKEN_H
