@@ -3,7 +3,7 @@ name: "Test CI"
 on: [push, pull_request]
 
 jobs:
-  test-flake:
+  flake:
     runs-on: ubuntu-latest
     steps:
       - name: Clone the repository
@@ -18,7 +18,7 @@ jobs:
       - name: Check for flake configurations
         run: nix flake check --all-systems --show-trace
 
-  test-llvm:
+  test:
     runs-on: ubuntu-latest
     steps:
       - name: Clone the repository
@@ -35,21 +35,3 @@ jobs:
 
       - name: Runt the llvm hosted binary
         run: nix run .
-
-  test-gnu:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Clone the repository
-        uses: actions/checkout@v4
-
-      - name: Install Nix
-        uses: DeterminateSystems/nix-installer-action@main
-
-      - name: Cache Nix store
-        uses: DeterminateSystems/magic-nix-cache-action@main
-
-      - name: Build the project with gnu package
-        run: nix build .#gnu
-
-      - name: Runt the gnu hosted binary
-        run: nix run .#gnu

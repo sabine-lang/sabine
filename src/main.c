@@ -4,6 +4,7 @@
 
 #include "../include/compiler.h"
 #include "../include/errors.h"
+#include <sabine/buffer.h>
 #include <stdio.h>
 
 int main()
