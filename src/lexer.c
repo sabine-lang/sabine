@@ -7,6 +7,7 @@
 #include "sabine/buffer.h"
 #include "sabine/vector.h"
 #include "token.h"
+#include <assert.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -113,6 +114,28 @@ struct token *token_make_number()
   return token_make_number_for_value(read_number());
 }
 
+static struct token *token_make_string(char start_delim, char end_delim)
+{
+  struct buffer *buf = buffer_create();
+
+  assert(nextc() == start_delim);
+
+  char c = nextc();
+  for (; c != end_delim && c != EOF; c = nextc()) {
+    if (c == '\\') {
+      // TODO: better handling for escape
+      continue;
+    }
+
+    buffer_write(buf, c);
+  }
+
+  buffer_write(buf, 0x00);
+
+  return token_create(
+    &(struct token){.type = TOKEN_TYPE_STRING, .sval = buffer_ptr(buf)});
+}
+
 struct token *read_next_token()
 {
   struct token *token = NULL;
@@ -122,6 +145,10 @@ struct token *read_next_token()
 
   NUMERIC_CASE:
     token = token_make_number();
+    break;
+
+  case '"':
+    token = token_make_string('"', '"');
     break;
 
   case ' ':
