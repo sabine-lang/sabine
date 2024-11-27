@@ -8,6 +8,9 @@
 #include "process.h"
 #include "sabine/vector.h"
 #include "token.h"
+#include <string.h>
+
+#define S_EQ(str1, str2) (str1 && str2 && (strcmp(str1, str2) == 0))
 
 #define NUMERIC_CASE                                                           \
   case '0':                                                                    \
@@ -20,6 +23,25 @@
   case '7':                                                                    \
   case '8':                                                                    \
   case '9'
+
+#define OPERATOR_CASE_EXCLUDING_DIVISION                                       \
+  case '+':                                                                    \
+  case '-':                                                                    \
+  case '*':                                                                    \
+  case '>':                                                                    \
+  case '<':                                                                    \
+  case '^':                                                                    \
+  case '%':                                                                    \
+  case '!':                                                                    \
+  case '=':                                                                    \
+  case '~':                                                                    \
+  case '|':                                                                    \
+  case '&':                                                                    \
+  case '(':                                                                    \
+  case '[':                                                                    \
+  case ',':                                                                    \
+  case '.':                                                                    \
+  case '?'
 
 enum {
   LEXICAL_ANALYSIS_ALL_OK,

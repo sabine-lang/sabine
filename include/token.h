@@ -50,4 +50,6 @@ struct token {
   const char *between_brackets;
 };
 
+bool token_is_keyword(struct token *token, const char *value);
+
 #endif // SABINE_TOKEN_H

@@ -10,7 +10,7 @@
 
 int main()
 {
-  int res = compile_file("./tests/string.c", "./tests/string", 0);
+  int res = compile_file("./tests/operator.c", "./tests/output", 0);
 
   if (res == COMPILER_FILE_COMPILED_OK) {
     printf("trace: compiled successfully\n");
