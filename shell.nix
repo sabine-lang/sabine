@@ -15,6 +15,7 @@ pkgs.stdenv.mkDerivation {
   nativeBuildInputs = with pkgs; [
     # LLVM & Clang toolchain
     cmake
+    cmake-format
     llvmPackages.llvm
     llvmPackages.clang-tools
 

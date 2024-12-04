@@ -9,7 +9,11 @@ include_directories($ENV{LD_LIBRARY_PATH})
 
 include_directories($ENV{NIX_LIBSABINE_HEADER})
 
-file(GLOB SABINE_SRC CONFIGURE_DEPENDS "include/*.h" "src/*.c")
+file(
+  GLOB SABINE_SRC CONFIGURE_DEPENDS
+  "include/*.h"
+  "src/*.c"
+)
 
 add_executable(sabine ${SABINE_SRC})
 

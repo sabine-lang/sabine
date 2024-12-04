@@ -43,6 +43,16 @@
   case '.':                                                                    \
   case '?'
 
+#define SYMBOL_CASE                                                            \
+  case '{':                                                                    \
+  case '}':                                                                    \
+  case ':':                                                                    \
+  case ';':                                                                    \
+  case '#':                                                                    \
+  case '\\':                                                                   \
+  case ')':                                                                    \
+  case ']'
+
 enum {
   LEXICAL_ANALYSIS_ALL_OK,
   LEXICAL_ANALYSIS_INPUT_ERROR,
