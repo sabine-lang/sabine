@@ -333,6 +333,12 @@ struct token *read_special_token()
   return NULL;
 }
 
+struct token *token_make_new_line()
+{
+  nextc();
+  return token_create(&(struct token){.type = TOKEN_TYPE_NEWLINE});
+}
+
 struct token *read_next_token()
 {
   struct token *token = NULL;
@@ -357,9 +363,12 @@ struct token *read_next_token()
     break;
 
   case ' ':
-  case '\n': // temporarily, because mf'in editor puts \n automatically
   case '\t':
     token = handle_whitespace();
+    break;
+
+  case '\n':
+    token = token_make_new_line();
     break;
 
   case EOF:
