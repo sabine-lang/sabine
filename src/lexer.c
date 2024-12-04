@@ -8,6 +8,7 @@
 #include "sabine/vector.h"
 #include "token.h"
 #include <assert.h>
+#include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -274,6 +275,34 @@ static struct token *token_make_symbol()
   return token;
 }
 
+static struct token *token_make_identifier_or_keyword()
+{
+  struct buffer *buffer = buffer_create();
+
+  char c = 0;
+  LEX_GETC_IF(buffer, c,
+              (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') ||
+                (c >= '0' && c <= '9') || c == '_');
+
+  // Null terminator
+  buffer_write(buffer, 0x00);
+
+  // TODO: Keyword checker
+
+  return token_create(
+    &(struct token){.type = TOKEN_TYPE_IDENTIFIER, .sval = buffer_ptr(buffer)});
+}
+
+struct token *read_special_token()
+{
+  char c = peekc();
+  if (isalpha(c) || c == '_') {
+    return token_make_identifier_or_keyword();
+  }
+
+  return NULL;
+}
+
 struct token *read_next_token()
 {
   struct token *token = NULL;
@@ -307,7 +336,10 @@ struct token *read_next_token()
     break;
 
   default:
-    compiler_error(lex_process->compiler, "Unexpected token\n");
+    token = read_special_token();
+    if (!token) {
+      compiler_error(lex_process->compiler, "Unexpected token\n");
+    }
   }
 
   return token;
