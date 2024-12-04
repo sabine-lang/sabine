@@ -10,7 +10,7 @@
 
 int main()
 {
-  int res = compile_file("./tests/comment.c", "./tests/output", 0);
+  int res = compile_file("./tests/quote.c", "./tests/output", 0);
 
   if (res == COMPILER_FILE_COMPILED_OK) {
     printf("trace: compiled successfully\n");
