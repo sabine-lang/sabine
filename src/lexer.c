@@ -9,6 +9,7 @@
 #include "token.h"
 #include <assert.h>
 #include <ctype.h>
+#include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -460,6 +461,30 @@ struct token *token_make_special_number_hexadecimal()
   const char *number_str = read_hex_number_str();
 
   number = strtol(number_str, 0, 16);
+
+  return token_make_number_for_value(number);
+}
+
+void lexer_validate_binary_string(const char *str)
+{
+  size_t len = strlen(str);
+  for (int i = 0; i < len; i++) {
+    if (str[i] != '0' && str[i] != '1') {
+      compiler_error(lex_process->compiler,
+                     "This is not a valid binary number\n");
+    }
+  }
+}
+
+struct token *token_make_special_number_binary()
+{
+  // Ditch the b
+  nextc();
+
+  unsigned long number = 0;
+  const char *number_str = read_number_str();
+
+  number = strtol(number_str, 0, 2);
 
   return token_make_number_for_value(number);
 }
