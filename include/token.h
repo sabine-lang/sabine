@@ -62,5 +62,8 @@ struct token {
 };
 
 bool token_is_keyword(struct token *token, const char *value);
+bool token_is_symbol(struct token *token, char c);
+
+bool token_is_nl_or_comment_or_newline_seperator(struct token *token);
 
 #endif // SABINE_TOKEN_H

@@ -21,6 +21,10 @@ struct compile_process {
   // Vector of tokens from lexical analysis
   struct vector *token_vec;
 
+  // Node vectors
+  struct vector *node_vec;
+  struct vector *node_tree_vec;
+
   FILE *ofile;
 };
 

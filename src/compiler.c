@@ -5,6 +5,8 @@
 #include "compiler.h"
 #include "errors.h"
 #include "lexer.h"
+#include "node.h"
+#include "parse.h"
 #include "process.h"
 #include <stdarg.h>
 #include <stdio.h>
@@ -62,7 +64,9 @@ int compile_file(const char *filename, const char *out_filename, int flags)
 
   process->token_vec = lex_process->token_vec;
 
-  // TOOD: Implement parsing
+  if (parse(process) != PARSE_ALL_OK) {
+    return COMPILER_FAILED_WITH_ERRORS;
+  }
 
   // TODO: Implement code generation
 
