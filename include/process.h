@@ -18,6 +18,9 @@ struct compile_process {
     const char *abs_path;
   } cfile;
 
+  // Vector of tokens from lexical analysis
+  struct vector *token_vec;
+
   FILE *ofile;
 };
 
