@@ -29,9 +29,8 @@ pkgs.stdenv.mkDerivation {
 
   # Necessary Environment Variables
   NIX_LIBSABINE_HEADER="${libsabine}/include";
-  NIX_LDFLAGS = "-L${(getLibrary pkgs.llvmPackages.llvm)} -L${getLibrary libsabine}";
+  NIX_LDFLAGS = "-L${getLibrary libsabine}";
   LD_LIBRARY_PATH = pkgs.lib.makeLibraryPath [
-    pkgs.llvmPackages.llvm
     libsabine
   ];
 
